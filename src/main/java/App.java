@@ -1,4 +1,5 @@
 
+
 // import WebData.URLCreatorService;
 
 // public class App {
@@ -16,3 +17,18 @@
 
 //     }
 // }
+
+import javafx.Gui;
+
+import javax.swing.*;
+
+public class App {
+    public static void main(String[] args) {
+
+        Gui gui = new Gui();
+        gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        gui.setSize(800, 600);
+        gui.setVisible(true);
+    }
+}
+
