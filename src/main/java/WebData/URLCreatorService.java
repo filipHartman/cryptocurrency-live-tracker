@@ -1,7 +1,7 @@
 package WebData;
 
 public class URLCreatorService {
-    public static final String SOURCE_URL = "http://min-api.cryptocompare.com/data/";
+    public static final String SOURCE_URL = "https://min-api.cryptocompare.com/data/";
     public static final String PRICES_COMMAND = "pricemulti";
     public static final String AFTER_COMMAND_SYMBOL = "?";
     public static final String CURRENCIES_SEPARATOR = ",";
