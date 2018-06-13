@@ -1,16 +1,14 @@
 package WebData;
 
-public class URLCreatorService {
-    public static final String SOURCE_URL = "https://min-api.cryptocompare.com/data/";
-    public static final String PRICES_COMMAND = "pricemulti";
-    public static final String AFTER_COMMAND_SYMBOL = "?";
-    public static final String CURRENCIES_SEPARATOR = ",";
-    public static final String SYMBOLS_OF_INTEREST = "fsyms";
-    public static final String SYMBOLS_TO_CONVERT = "tsyms";
-    public static final String INTERSET_CONVERT_SEPARATOR = "&";
-    public static final String[] DEFAULT_CRYPTOCURRENCY_SYMBOLS = new String[] {
-            "BTC", "ETH", "XRP", "BCH", "ADA", "XLM", "NEO", "LTC", "EOS", "XEM"
-    };
+class URLCreatorService {
+    static final String SOURCE_URL = "https://min-api.cryptocompare.com/data/";
+    static final String PRICES_COMMAND = "pricemulti";
+    static final String AFTER_COMMAND_SYMBOL = "?";
+    static final String CURRENCIES_SEPARATOR = ",";
+    static final String SYMBOLS_OF_INTEREST = "fsyms";
+    static final String SYMBOLS_TO_CONVERT = "tsyms";
+    static final String INTERSET_CONVERT_SEPARATOR = "&";
+
 
     public String createURL(String[] cryptocurrencySymbols, String[] currenciesSymbolsToConvert) {
         StringBuilder sb = new StringBuilder(SOURCE_URL);
