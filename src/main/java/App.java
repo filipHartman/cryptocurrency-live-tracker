@@ -19,11 +19,9 @@
 // }
 
 import crypto.CurrencyContainer;
-import javafx.Gui;
+import view.Gui;
 
 import javax.swing.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 public class App {
     public static void main(String[] args) {

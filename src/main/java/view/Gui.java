@@ -1,4 +1,4 @@
-package javafx;
+package view;
 
 import WebData.CurrencyDataProvider;
 import com.sun.java.swing.plaf.windows.WindowsButtonListener;
@@ -40,7 +40,7 @@ public class Gui extends JFrame {
         logo.setEditable(false);
         add(logo);
 
-        String[] currencies = {"BTC", "ETH"};
+        String[] currencies = container.getAllCryptoCurrencies();
         JComboBox dropdownMenu = new JComboBox(currencies);
         dropdownMenu.setAlignmentX(0);
         add(dropdownMenu);
@@ -68,7 +68,6 @@ public class Gui extends JFrame {
                         selectedCurrencies.add(checkbox.getText());
                     }
                 }
-                //System.out.println(dropdownMenu.getSelectedItem() + " : " + new StringBuilder().append(selectedCurrencies).toString());
 
                 container.add(dropdownMenu.getSelectedItem().toString(), listToArr(selectedCurrencies), tableModel);
                 tableModel.fireTableDataChanged();
@@ -101,10 +100,8 @@ public class Gui extends JFrame {
             }
         });
         table = new JTable(tableModel);
-
-        JScrollPane cryptoPane = new JScrollPane(threads);
         add(table);
-        //(new PaneRefresher(table,container)).start();
+
     }
 
     public static String[] listToArr(ArrayList<String> list){
@@ -117,7 +114,7 @@ public class Gui extends JFrame {
 
     public void updateTable(String[][] content, String[] headers){
         isChanging = true;
-        for(int i =tableModel.getRowCount()-1;i>0; i--){
+        for(int i = tableModel.getRowCount()-1; i>0; i--){
             tableModel.removeRow(i);
         }
 

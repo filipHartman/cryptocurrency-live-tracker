@@ -25,7 +25,11 @@ public class CurrencyThread extends Thread {
         System.out.println("started thread " + this.name);
         while(true){
             this.data = dataProvider.getCurrencyData(name, realCurrencies);
-            try{Thread.sleep(1000);}catch (InterruptedException e){}
+            try {
+                Thread.sleep(1000);
+            }catch (InterruptedException e){
+                e.printStackTrace();
+            }
             table.fireTableDataChanged();
         }
     }

@@ -30,7 +30,6 @@ public class CurrencyDataProvider {
             String webData = "";
             if ((inputLine = in.readLine()) != null) {
                 webData = inputLine;
-                System.out.println(webData);
             }
             String[] allCryptoCurrenciesData = webData.substring(1, webData.length() - 1).split("},");
             for (String crypto : allCryptoCurrenciesData) {

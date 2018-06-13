@@ -1,5 +1,7 @@
 package crypto;
 
+import WebData.CurrencyDataProvider;
+
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,4 +33,9 @@ public class CurrencyContainer {
         }
         return all;
     }
+
+    public String [] getAllCryptoCurrencies() {
+        return CurrencyDataProvider.getDefaultCryptocurrencySymbols();
+    }
+
 }
