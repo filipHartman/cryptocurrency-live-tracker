@@ -2,6 +2,7 @@ package crypto;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class CurrencyContainer {
 
@@ -20,8 +21,8 @@ public class CurrencyContainer {
         return threads.containsKey(threadName);
     }
 
-    public ArrayList<CurrencyThread> getAllCurrentThreads(){
-        ArrayList<CurrencyThread> all = new ArrayList<>();
+    public List<CurrencyThread> getAllCurrentThreads(){
+        List<CurrencyThread> all = new ArrayList<>();
         for(String name : this.threads.keySet()){
             all.add(this.threads.get(name));
         }
