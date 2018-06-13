@@ -18,17 +18,19 @@
 //     }
 // }
 
+import crypto.CurrencyContainer;
 import javafx.Gui;
 
 import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class App {
     public static void main(String[] args) {
-
-        Gui gui = new Gui();
-        gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        gui.setSize(800, 600);
+        Gui gui = new Gui(new CurrencyContainer());
+        gui.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        gui.setSize(650, 600);
+        gui.setResizable(false);
         gui.setVisible(true);
     }
 }
-

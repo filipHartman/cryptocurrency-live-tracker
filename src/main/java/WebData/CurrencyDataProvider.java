@@ -19,9 +19,9 @@ public class CurrencyDataProvider {
         return DEFAULT_CRYPTOCURRENCY_SYMBOLS;
     }
 
-    public List<CurrencyThread> getCurrencyData(String[] cryptoCurrencies, String[] realCurrencies) {
-        List<CurrencyThread> currencies = new ArrayList<>();
-        String urlAddress = urlCreator.createURL(cryptoCurrencies, realCurrencies);
+    public HashMap<String, String> getCurrencyData(String cryptoCurrency, String[] realCurrencies) {
+        HashMap<String, String> currencies = new HashMap<>();
+        String urlAddress = urlCreator.createURL(new String[]{cryptoCurrency}, realCurrencies);
         URL dataUrl;
         try {
             dataUrl = new URL(urlAddress);
@@ -33,18 +33,15 @@ public class CurrencyDataProvider {
                 System.out.println(webData);
             }
             String[] allCryptoCurrenciesData = webData.substring(1, webData.length() - 1).split("},");
-            for (String cryptoCurrency : allCryptoCurrenciesData) {
+            for (String crypto : allCryptoCurrenciesData) {
 
-                String[] splitedCurrencies = cryptoCurrency.split(":\\{");
+                String[] splitedCurrencies = crypto.split(":\\{");
                 String cryptoCurrencyName = splitedCurrencies[0];
                 String[] realCurrenciesData = splitedCurrencies[1].split(",");
-                HashMap<String, String> realCurrenciesMap = new HashMap<>();
                 for (String realCurrency : realCurrenciesData) {
                     String[] splitedRealCurrency = realCurrency.split(":");
-                    realCurrenciesMap.put(splitedRealCurrency[0], splitedRealCurrency[1].replace("}",""));
+                    currencies.put(splitedRealCurrency[0], splitedRealCurrency[1].replace("}",""));
                 }
-                currencies.add(new CurrencyThread(cryptoCurrencyName, realCurrenciesMap));
-
             }
             in.close();
         } catch (IOException e) {
