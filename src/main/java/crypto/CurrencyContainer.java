@@ -8,7 +8,7 @@ public class CurrencyContainer {
     private HashMap<String, CurrencyThread> threads = new HashMap<>();
 
     public void add(String threadName){
-        this.threads.put(threadName, new CurrencyThread(threadName));
+        this.threads.put(threadName, new CurrencyThread(threadName, new HashMap<>()));
         this.threads.get(threadName).run();
     }
 
