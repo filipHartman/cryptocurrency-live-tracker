@@ -120,7 +120,7 @@ public class Gui extends JFrame {
                 tableModel.removeRow(i);
             }catch(IndexOutOfBoundsException e){
                 // Table started refreshing right after adding new element - actual rowCount is +1 to the state of table where the old table
-                System.out.println("!-- Read the comment in GUI.java:119;\nTL;DR: refresh operation was too fast");
+                System.out.println("!-- Read the comment in GUI.java:122;\nTL;DR: refresh operation was too fast");
             }
         }
 
@@ -130,5 +130,7 @@ public class Gui extends JFrame {
 
         this.table = new JTable(tableModel);
         isChanging = false;
+
+
     }
 }
