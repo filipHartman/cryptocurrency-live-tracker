@@ -22,7 +22,6 @@ public class CurrencyThread extends Thread {
     }
 
     public void run(){
-        System.out.println("started thread " + this.name);
 
         while(true){
             this.data = dataProvider.getCurrencyData(name, realCurrencies);

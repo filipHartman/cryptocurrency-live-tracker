@@ -43,6 +43,7 @@ public class Gui extends JFrame {
         checkboxPanel.add(new JCheckBox("EUR"));
         checkboxPanel.add(new JCheckBox("USD"));
         checkboxPanel.add(new JCheckBox("PLN"));
+        checkboxPanel.add(new JCheckBox("JPY"));
 
         checkboxPanel.setBorder(null);
         BasicInternalFrameUI bi = (BasicInternalFrameUI)checkboxPanel.getUI();
@@ -68,8 +69,16 @@ public class Gui extends JFrame {
         add(followButton);
 
         isChanging = false;
-        String[] headers = { "CRYPTO", "EUR", "USD" ,"PLN" ,"cur1" ,"cur1" ,"cur1"};
-        tableModel = new DefaultTableModel(headers,0);
+
+        String[] headers = { "CRYPTO", "EUR", "USD" ,"PLN" ,"JPY" ,"cur1" ,"cur1"};
+        tableModel = new DefaultTableModel(headers,0){
+
+            @Override
+            public boolean isCellEditable(int row, int col){
+                return false;
+            }
+        };
+
         tableModel.addRow(headers);
         tableModel.addTableModelListener(new TableModelListener() {
             @Override
@@ -79,14 +88,15 @@ public class Gui extends JFrame {
                 CurrencyThread thread;
                 for(int i = 0; i < container.getAllCurrentThreads().length; i++){
                     thread = container.getAllCurrentThreads()[i];
-                    System.out.println(thread);
                     String eur = thread.data.get("\"EUR\"");
                     eur = eur!=null ? eur : "--";
                     String dol = thread.data.get("\"USD\"");
                     dol = dol!=null ? dol : "--";
                     String pln = thread.data.get("\"PLN\"");
                     pln = pln!=null ? pln : "--";
-                    content[i] = new String[]{thread.name, eur, dol, pln, "--", "--", "--"};
+                    String yen = thread.data.get("\"JPY\"");
+                    yen = yen!=null ? yen : "--";
+                    content[i] = new String[]{thread.name, eur, dol, pln, yen, "--", "--"};
                 }
 
                 updateTable(content);
@@ -108,7 +118,12 @@ public class Gui extends JFrame {
     public void updateTable(String[][] content){
         isChanging = true;
         for(int i = tableModel.getRowCount()-1; i>0; i--){
-            tableModel.removeRow(i);
+            try {
+                tableModel.removeRow(i);
+            }catch(IndexOutOfBoundsException e){
+                // Table started refreshing right after adding new element - actual rowCount is +1 to the state of table where the old table
+                System.out.println("!-- Read the comment in GUI.java:122;\nTL;DR: refresh operation was too fast");
+            }
         }
 
         for(int i = 0; i<content.length; i++) {
@@ -117,5 +132,7 @@ public class Gui extends JFrame {
 
         this.table = new JTable(tableModel);
         isChanging = false;
+
+
     }
 }
