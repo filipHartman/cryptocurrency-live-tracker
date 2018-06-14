@@ -49,12 +49,12 @@ public class Gui extends JFrame {
         BasicInternalFrameUI bi = (BasicInternalFrameUI)checkboxPanel.getUI();
         bi.setNorthPane(null);
         add(checkboxPanel);
-        ArrayList<String> selectedCurrencies = new ArrayList<>();
+
         JButton followButton = new JButton("Follow");
         followButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                ArrayList<String> selectedCurrencies = new ArrayList<>();
                 for(Component c : checkboxPanel.getContentPane().getComponents()){
                     JCheckBox checkbox = (JCheckBox) c;
                     if(checkbox.isSelected()){
