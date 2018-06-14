@@ -19,7 +19,6 @@ import javax.swing.table.TableColumn;
 
 public class Gui extends JFrame {
 
-    private JList threads;
     private JTable table;
     private DefaultTableModel tableModel;
     private boolean isChanging;
@@ -27,13 +26,6 @@ public class Gui extends JFrame {
     public Gui(CurrencyContainer container) {
         super("Cryptocurrency Live Tracker");
         setLayout(new FlowLayout());
-
-        threads = new JList(container.getAllCurrentThreads());
-        threads.setFixedCellHeight(20);
-        threads.setFixedCellWidth(630);
-
-        threads.setVisibleRowCount(10);
-        threads.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
         JTextField logo = new JTextField("SUPER DUPER CRYPTO LIVE TRACKER");
         logo.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
@@ -76,12 +68,13 @@ public class Gui extends JFrame {
         add(followButton);
 
         isChanging = false;
-        tableModel = new DefaultTableModel(0,7);
+        String[] headers = { "CRYPTO", "EUR", "USD" ,"pln" ,"cur1" ,"cur1" ,"cur1"};
+        tableModel = new DefaultTableModel(headers,0);
+        tableModel.addRow(headers);
         tableModel.addTableModelListener(new TableModelListener() {
             @Override
             public void tableChanged(TableModelEvent e) {
                 if(isChanging) return;
-                String[] headers = { "crypto", "eur", "usd" ,"pln" ,"cur1" ,"cur1" ,"cur1"};
                 String[][] content = new String[container.getAllCurrentThreads().length][7];
                 CurrencyThread thread;
                 for(int i = 0; i < container.getAllCurrentThreads().length; i++){
@@ -96,7 +89,7 @@ public class Gui extends JFrame {
                     content[i] = new String[]{thread.name, eur, dol, pln, "--", "--", "--"};
                 }
 
-                updateTable(content, headers);
+                updateTable(content);
             }
         });
         table = new JTable(tableModel);
@@ -112,7 +105,7 @@ public class Gui extends JFrame {
         return data;
     }
 
-    public void updateTable(String[][] content, String[] headers){
+    public void updateTable(String[][] content){
         isChanging = true;
         for(int i = tableModel.getRowCount()-1; i>0; i--){
             tableModel.removeRow(i);
