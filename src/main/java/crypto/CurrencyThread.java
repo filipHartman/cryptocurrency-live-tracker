@@ -22,15 +22,15 @@ public class CurrencyThread extends Thread {
     }
 
     public void run(){
-        System.out.println("started thread " + this.name);
+
         while(true){
             this.data = dataProvider.getCurrencyData(name, realCurrencies);
+            table.fireTableDataChanged();
             try {
-                Thread.sleep(1000);
-            }catch (InterruptedException e){
+                Thread.sleep(10000);
+            }catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            table.fireTableDataChanged();
         }
     }
 

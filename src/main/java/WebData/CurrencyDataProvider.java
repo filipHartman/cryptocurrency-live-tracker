@@ -35,8 +35,7 @@ public class CurrencyDataProvider {
             for (String crypto : allCryptoCurrenciesData) {
 
                 String[] splitedCurrencies = crypto.split(":\\{");
-                String cryptoCurrencyName = splitedCurrencies[0];
-                String[] realCurrenciesData = splitedCurrencies[1].split(",");
+                String[] realCurrenciesData = splitedCurrencies.length > 1 ? splitedCurrencies[1].split(",") : new String[0];
                 for (String realCurrency : realCurrenciesData) {
                     String[] splitedRealCurrency = realCurrency.split(":");
                     currencies.put(splitedRealCurrency[0], splitedRealCurrency[1].replace("}",""));
