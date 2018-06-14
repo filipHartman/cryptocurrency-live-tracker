@@ -68,7 +68,7 @@ public class Gui extends JFrame {
         add(followButton);
 
         isChanging = false;
-        String[] headers = { "CRYPTO", "EUR", "USD" ,"pln" ,"cur1" ,"cur1" ,"cur1"};
+        String[] headers = { "CRYPTO", "EUR", "USD" ,"PLN" ,"cur1" ,"cur1" ,"cur1"};
         tableModel = new DefaultTableModel(headers,0);
         tableModel.addRow(headers);
         tableModel.addTableModelListener(new TableModelListener() {
