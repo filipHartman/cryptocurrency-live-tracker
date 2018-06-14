@@ -12,6 +12,8 @@ public class CurrencyThread extends Thread {
     private String[] realCurrencies;
     public HashMap<String, String> data;
     private DefaultTableModel table;
+    private String revision;
+    private float lastValue;
 
     public CurrencyThread(String cryptoName, String[] realCurrencies, DefaultTableModel table){
         super();
@@ -19,6 +21,8 @@ public class CurrencyThread extends Thread {
         this.data = new HashMap<>();
         this.realCurrencies = realCurrencies;
         this.table = table;
+        this.revision = " ";
+        this.lastValue = 0;
     }
 
     public void run(){
@@ -26,11 +30,25 @@ public class CurrencyThread extends Thread {
         while(true){
             this.data = dataProvider.getCurrencyData(name, realCurrencies);
             table.fireTableDataChanged();
+            checkValueShift();
             try {
                 Thread.sleep(10000);
             }catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void checkValueShift() {
+        float currentValue = Float.valueOf(data.get("\"PLN\""));
+        if(currentValue > lastValue) {
+            setRevision("      +");
+            setLastValue(currentValue);
+        } else if(currentValue < lastValue) {
+            setRevision("      -");
+            setLastValue(currentValue);
+        } else {
+            setRevision(" ");
         }
     }
 
@@ -41,5 +59,17 @@ public class CurrencyThread extends Thread {
             sb.append(" ").append(realCurrencyName).append(" : ").append(data.get(realCurrencyName)).append(" ");
         }
         return "Name: " + name + sb.toString();
+    }
+
+    public void setRevision(String revision) {
+        this.revision = revision;
+    }
+
+    public void setLastValue(float lastValue) {
+        this.lastValue = lastValue;
+    }
+
+    public String getRevision() {
+        return revision;
     }
 }

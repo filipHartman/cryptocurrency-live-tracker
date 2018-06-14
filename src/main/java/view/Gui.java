@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
@@ -70,11 +71,19 @@ public class Gui extends JFrame {
 
         isChanging = false;
 
-        String[] headers = { "CRYPTO", "EUR", "USD" ,"PLN" ,"JPY" ,"cur1" ,"cur2"};
+        String[] headers = { "CRYPTO", "EUR", "USD" ,"PLN" ,"JPY" ,"CHANGE" ,"cur2"};
         tableModel = new DefaultTableModel(headers,0){
             @Override
             public boolean isCellEditable(int row, int col){
                 return false;
+            }
+            List<Color> rowColours = Arrays.asList(
+                    Color.RED,
+                    Color.GREEN
+            );
+            public void setRowColour(int row, Color c) {
+                rowColours.set(row, c);
+                fireTableRowsUpdated(row, row);
             }
         };
 
@@ -95,7 +104,7 @@ public class Gui extends JFrame {
                     pln = pln!=null ? pln : "--";
                     String yen = thread.data.get("\"JPY\"");
                     yen = yen!=null ? yen : "--";
-                    content[i] = new String[]{thread.name, eur, dol, pln, yen, "--", "--"};
+                    content[i] = new String[]{thread.name, eur, dol, pln, yen, thread.getRevision(), "--"};
                 }
 
                 updateTable(content);
