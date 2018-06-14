@@ -49,12 +49,12 @@ public class Gui extends JFrame {
         BasicInternalFrameUI bi = (BasicInternalFrameUI)checkboxPanel.getUI();
         bi.setNorthPane(null);
         add(checkboxPanel);
-
+        ArrayList<String> selectedCurrencies = new ArrayList<>();
         JButton followButton = new JButton("Follow");
         followButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ArrayList<String> selectedCurrencies = new ArrayList<>();
+
                 for(Component c : checkboxPanel.getContentPane().getComponents()){
                     JCheckBox checkbox = (JCheckBox) c;
                     if(checkbox.isSelected()){
@@ -70,9 +70,8 @@ public class Gui extends JFrame {
 
         isChanging = false;
 
-        String[] headers = { "CRYPTO", "EUR", "USD" ,"PLN" ,"JPY" ,"cur1" ,"cur1"};
+        String[] headers = { "CRYPTO", "EUR", "USD" ,"PLN" ,"JPY" ,"cur1" ,"cur2"};
         tableModel = new DefaultTableModel(headers,0){
-
             @Override
             public boolean isCellEditable(int row, int col){
                 return false;
@@ -105,6 +104,22 @@ public class Gui extends JFrame {
         table = new JTable(tableModel);
         add(table);
 
+        JButton deleteButton = getDeleteButton(container);
+        add(deleteButton);
+
+    }
+
+    public JButton getDeleteButton(CurrencyContainer container) {
+        JButton deleteButton = new JButton("Clear");
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                container.removeAll();
+                String [][] content = new String[0][];
+                updateTable(content);
+            }
+        });
+        return deleteButton;
     }
 
     public static String[] listToArr(ArrayList<String> list){
@@ -132,7 +147,5 @@ public class Gui extends JFrame {
 
         this.table = new JTable(tableModel);
         isChanging = false;
-
-
     }
 }
