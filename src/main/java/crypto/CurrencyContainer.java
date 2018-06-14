@@ -21,6 +21,10 @@ public class CurrencyContainer {
         this.threads.remove(threadName);
     }
 
+    public void removeAll() {
+        threads.clear();
+    }
+
     public boolean contains(String threadName){
         return threads.containsKey(threadName);
     }
