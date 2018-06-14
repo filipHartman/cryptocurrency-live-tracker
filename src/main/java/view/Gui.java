@@ -9,7 +9,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
@@ -76,14 +75,6 @@ public class Gui extends JFrame {
             @Override
             public boolean isCellEditable(int row, int col){
                 return false;
-            }
-            List<Color> rowColours = Arrays.asList(
-                    Color.RED,
-                    Color.GREEN
-            );
-            public void setRowColour(int row, Color c) {
-                rowColours.set(row, c);
-                fireTableRowsUpdated(row, row);
             }
         };
 
