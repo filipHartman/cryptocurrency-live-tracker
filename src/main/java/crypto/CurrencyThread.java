@@ -26,7 +26,7 @@ public class CurrencyThread extends Thread {
         while(true){
             this.data = dataProvider.getCurrencyData(name, realCurrencies);
             try {
-                Thread.sleep(1000);
+                Thread.sleep(10000);
             }catch (InterruptedException e){
                 e.printStackTrace();
             }
